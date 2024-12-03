@@ -10,8 +10,9 @@ import CreateTool from "./pages/CreateTool";
 import UpdateTool from "./pages/UpdateTool";
 import DeleteTool from "./pages/DeleteTool";
 import ApproveTool from "./pages/ApproveTool";
+import RejectTool from "./pages/RejectTool";
 import AddWorker from "./pages/AddWorker";
-import GetWorkers from "./pages/GetWorkers.tsx";
+import GetWorkers from "./pages/GetWorkers";
 import RemoveWorker from "./pages/RemoveWorker";
 import ReadTools from "./pages/ReadTools";
 import AddTool from "./pages/AddTool";
@@ -52,6 +53,7 @@ function App() {
                   path="/approvetool/:id"
                   element={<ApproveTool />}
                 ></Route>
+                <Route path="/rejecttool/:id" element={<RejectTool />}></Route>
                 <Route path="/addworker" element={<AddWorker />}></Route>
                 <Route path="/getworkers" element={<GetWorkers />}></Route>
                 <Route

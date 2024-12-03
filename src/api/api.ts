@@ -284,3 +284,22 @@ export const approveTool = async (id: string) => {
     }
   }
 };
+
+export const rejectTool = async (id: string) => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/tool/reject/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
