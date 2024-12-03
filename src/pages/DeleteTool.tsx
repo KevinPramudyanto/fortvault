@@ -99,7 +99,7 @@ const DeleteTool = () => {
               : "mt-3 rounded bg-green-800 px-4 py-3 font-semibold text-white hover:bg-green-900"
           }
         >
-          Delete Item
+          Delete this item?
         </button>
       </form>
 

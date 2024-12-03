@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { readTool, addTool } from "../api/api.ts";
+import { readTool, approveTool } from "../api/api.ts";
 
-const AddTool = () => {
+const ApproveTool = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const brandRef = useRef<HTMLInputElement | null>(null);
@@ -26,13 +26,13 @@ const AddTool = () => {
     isError: isRequestError,
     error: requestError,
   } = useMutation({
-    mutationFn: addTool,
+    mutationFn: approveTool,
     onSuccess: () => {
       navigate("/", { replace: true });
     },
   });
 
-  const handleAddTool = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleApproveTool = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate(id || "");
   };
@@ -40,9 +40,9 @@ const AddTool = () => {
   return (
     <div className="m-auto max-w-md">
       <div className="text-left text-2xl font-bold sm:text-3xl">
-        Borrow Item
+        Approve Item
       </div>
-      <form className="p-5 sm:p-10" onSubmit={handleAddTool}>
+      <form className="p-5 sm:p-10" onSubmit={handleApproveTool}>
         <div className="mb-5 flex flex-col gap-2">
           <label className="text-left font-semibold" htmlFor="name">
             Name :
@@ -99,7 +99,7 @@ const AddTool = () => {
               : "mt-3 rounded bg-green-800 px-4 py-3 font-semibold text-white hover:bg-green-900"
           }
         >
-          Borrow this item ?
+          Approve this item ?
         </button>
       </form>
 
@@ -117,4 +117,4 @@ const AddTool = () => {
   );
 };
 
-export default AddTool;
+export default ApproveTool;

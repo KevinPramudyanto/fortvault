@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body {
-  @apply font-montserrat min-h-screen text-center;
+  @apply min-h-screen text-center font-montserrat;
 }

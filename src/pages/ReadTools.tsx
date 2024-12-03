@@ -60,6 +60,7 @@ const ReadTools = () => {
             brand: string;
             image: string;
             worker: string;
+            isApproved: boolean;
           }) => (
             <div key={tool._id} className="m-5 border p-5">
               <img
@@ -75,20 +76,44 @@ const ReadTools = () => {
               <div>Name: {tool.name}</div>
               <div>Description: {tool.description}</div>
               <div>Brand: {tool.brand}</div>
-              <div>Status: {tool.worker && "not "}available for loan</div>
-              {userCtx?.role === "manager" && (
+              <div>
+                Available to borrow:{" "}
+                {tool.isApproved && !tool.worker ? "Yes" : "No"}
+              </div>
+              <div>
+                Pending manager approval: {tool.isApproved ? "No" : "Yes"}
+              </div>
+              {userCtx?.role === "manager" &&
+                tool.isApproved &&
+                !tool.worker && (
+                  <>
+                    <Link
+                      className="m-1 border p-1"
+                      to={"/updatetool/" + tool._id}
+                    >
+                      Update
+                    </Link>
+                    <Link
+                      className="m-1 border p-1"
+                      to={"/deletetool/" + tool._id}
+                    >
+                      Delete
+                    </Link>
+                  </>
+                )}
+              {userCtx?.role === "manager" && !tool.isApproved && (
                 <>
                   <Link
                     className="m-1 border p-1"
-                    to={"/updatetool/" + tool._id}
+                    to={"/approvetool/" + tool._id}
                   >
-                    Update
+                    Approve
                   </Link>
                   <Link
                     className="m-1 border p-1"
-                    to={"/deletetool/" + tool._id}
+                    to={"/rejecttool/" + tool._id}
                   >
-                    Delete
+                    Reject
                   </Link>
                 </>
               )}

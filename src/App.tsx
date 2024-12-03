@@ -9,6 +9,7 @@ import Signout from "./pages/Signout";
 import CreateTool from "./pages/CreateTool";
 import UpdateTool from "./pages/UpdateTool";
 import DeleteTool from "./pages/DeleteTool";
+import ApproveTool from "./pages/ApproveTool";
 import AddWorker from "./pages/AddWorker";
 import GetWorkers from "./pages/GetWorkers.tsx";
 import RemoveWorker from "./pages/RemoveWorker";
@@ -47,6 +48,10 @@ function App() {
                 <Route path="/readtools" element={<ReadTools />}></Route>
                 <Route path="/updatetool/:id" element={<UpdateTool />}></Route>
                 <Route path="/deletetool/:id" element={<DeleteTool />}></Route>
+                <Route
+                  path="/approvetool/:id"
+                  element={<ApproveTool />}
+                ></Route>
                 <Route path="/addworker" element={<AddWorker />}></Route>
                 <Route path="/getworkers" element={<GetWorkers />}></Route>
                 <Route
