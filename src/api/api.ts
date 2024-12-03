@@ -1,0 +1,247 @@
+import axios from "axios";
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+export const signup = async (userData: {
+  username: string;
+  password: string;
+  role: string;
+}) => {
+  try {
+    const response = await axios.post(`${SERVER_URL}/api/signup`, userData, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const signin = async (userData: {
+  username: string;
+  password: string;
+}) => {
+  try {
+    const response = await axios.post(`${SERVER_URL}/api/signin`, userData, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const createTool = async (toolData: {
+  name: string;
+  description: string;
+  brand: string;
+}) => {
+  try {
+    const response = await axios.post(`${SERVER_URL}/api/tool`, toolData, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const readTools = async () => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/tool`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const readTool = async (id: string) => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/tool/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const updateTool = async (
+  id: string,
+  toolData: {
+    name: string;
+    description: string;
+    brand: string;
+  },
+) => {
+  try {
+    const response = await axios.patch(
+      `${SERVER_URL}/api/tool/${id}`,
+      toolData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      },
+    );
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const deleteTool = async (id: string) => {
+  try {
+    const response = await axios.delete(`${SERVER_URL}/api/tool/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const addWorker = async (userData: { username: string }) => {
+  try {
+    const response = await axios.patch(`${SERVER_URL}/api/user/add`, userData, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const getWorkers = async () => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/user/get`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const removeWorker = async (id: string) => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/user/remove/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const addTool = async (id: string) => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/tool/add/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const removeTool = async (id: string) => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/tool/remove/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
