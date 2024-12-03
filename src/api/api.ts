@@ -45,6 +45,7 @@ export const createTool = async (toolData: {
   name: string;
   description: string;
   brand: string;
+  image: string;
 }) => {
   try {
     const response = await axios.post(`${SERVER_URL}/api/tool`, toolData, {
@@ -235,6 +236,25 @@ export const removeTool = async (id: string) => {
         authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const uploadTool = async (formData: FormData) => {
+  try {
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/" +
+        import.meta.env.VITE_CLOUDNAME +
+        "/image/upload",
+      formData,
+    );
     return response.data;
   } catch (error: any) {
     const message = error.response.data.message;

@@ -58,9 +58,20 @@ const ReadTools = () => {
             name: string;
             description: string;
             brand: string;
+            image: string;
             worker: string;
           }) => (
             <div key={tool._id} className="m-5 border p-5">
+              <img
+                className="aspect-video object-cover"
+                src={
+                  "https://res.cloudinary.com/" +
+                  import.meta.env.VITE_CLOUDNAME +
+                  "/image/upload/" +
+                  tool.image
+                }
+                alt={tool.image}
+              />
               <div>Name: {tool.name}</div>
               <div>Description: {tool.description}</div>
               <div>Brand: {tool.brand}</div>
