@@ -26,16 +26,11 @@ function App() {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token"),
   );
-  const [username, setUsername] = useState<string | null>(
-    localStorage.getItem("username"),
-  );
   const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
 
   return (
     <QueryClientProvider client={queryClient}>
-      <UserContext.Provider
-        value={{ token, setToken, username, setUsername, role, setRole }}
-      >
+      <UserContext.Provider value={{ token, setToken, role, setRole }}>
         <Navbar />
         <div className="m-auto max-w-screen-xl px-5 sm:px-10">
           <Routes>

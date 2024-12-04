@@ -21,10 +21,8 @@ const Signin = () => {
     mutationFn: signin,
     onSuccess: (data) => {
       userCtx?.setToken(data.token);
-      userCtx?.setUsername(data.username);
       userCtx?.setRole(data.role);
       localStorage.setItem("token", data.token);
-      localStorage.setItem("username", data.username);
       localStorage.setItem("role", data.role);
       navigate("/", { replace: true });
     },
@@ -36,14 +34,20 @@ const Signin = () => {
     setError("");
 
     if (usernameRef.current && passwordRef.current) {
-      if (usernameRef.current.value === "") {
+      if (
+        usernameRef.current.value.length < 1 ||
+        usernameRef.current.value.length > 20
+      ) {
         setIsError(true);
-        setError("Username is required.");
+        setError("Username must be between 1-20 characters.");
         return;
       }
-      if (passwordRef.current.value === "") {
+      if (
+        passwordRef.current.value.length < 1 ||
+        passwordRef.current.value.length > 20
+      ) {
         setIsError(true);
-        setError("Password is required.");
+        setError("Password must be between 1-20 characters.");
         return;
       }
 
@@ -73,6 +77,7 @@ const Signin = () => {
             ref={usernameRef}
             autoComplete="off"
             required
+            maxLength={20}
           />
         </div>
 
@@ -88,6 +93,7 @@ const Signin = () => {
             ref={passwordRef}
             autoComplete="off"
             required
+            maxLength={20}
           />
         </div>
 

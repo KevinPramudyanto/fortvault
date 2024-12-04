@@ -35,14 +35,20 @@ const Signup = () => {
       roleRef.current &&
       confirmRef.current
     ) {
-      if (usernameRef.current.value === "") {
+      if (
+        usernameRef.current.value.length < 1 ||
+        usernameRef.current.value.length > 20
+      ) {
         setIsError(true);
-        setError("Username is required.");
+        setError("Username must be between 1-20 characters.");
         return;
       }
-      if (passwordRef.current.value === "") {
+      if (
+        passwordRef.current.value.length < 1 ||
+        passwordRef.current.value.length > 20
+      ) {
         setIsError(true);
-        setError("Password is required.");
+        setError("Password must be between 1-20 characters.");
         return;
       }
       if (confirmRef.current.value !== passwordRef.current.value) {
@@ -50,9 +56,12 @@ const Signup = () => {
         setError("Confirm Password do not match with Password.");
         return;
       }
-      if (roleRef.current.value === "") {
+      if (
+        roleRef.current.value.length < 1 ||
+        roleRef.current.value.length > 10
+      ) {
         setIsError(true);
-        setError("Role is required.");
+        setError("Role must be between 1-10 characters.");
         return;
       }
 
@@ -83,6 +92,7 @@ const Signup = () => {
             ref={usernameRef}
             autoComplete="off"
             required
+            maxLength={20}
           />
         </div>
 
@@ -98,6 +108,7 @@ const Signup = () => {
             ref={passwordRef}
             autoComplete="off"
             required
+            maxLength={20}
           />
         </div>
 
@@ -113,6 +124,7 @@ const Signup = () => {
             ref={confirmRef}
             autoComplete="off"
             required
+            maxLength={20}
           />
         </div>
 

@@ -13,7 +13,7 @@ export const signup = async (userData: {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -32,7 +32,7 @@ export const signin = async (userData: {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -56,7 +56,7 @@ export const createTool = async (toolData: {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -75,7 +75,7 @@ export const readTools = async () => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -94,7 +94,7 @@ export const readTool = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -124,7 +124,7 @@ export const updateTool = async (
     );
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -143,7 +143,7 @@ export const deleteTool = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -162,7 +162,7 @@ export const addWorker = async (userData: { username: string }) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -181,7 +181,7 @@ export const getWorkers = async () => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -200,7 +200,7 @@ export const removeWorker = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -219,7 +219,7 @@ export const addTool = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -238,7 +238,7 @@ export const removeTool = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -257,7 +257,7 @@ export const uploadTool = async (formData: FormData) => {
     );
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -276,7 +276,7 @@ export const approveTool = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {
@@ -295,7 +295,7 @@ export const rejectTool = async (id: string) => {
     });
     return response.data;
   } catch (error: any) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || error.response.data.msg;
     if (Array.isArray(message)) {
       throw new Error(message[0]);
     } else {

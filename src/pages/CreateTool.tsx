@@ -67,19 +67,28 @@ const CreateTool = () => {
     setError("");
 
     if (nameRef.current && descriptionRef.current && brandRef.current) {
-      if (nameRef.current.value === "") {
+      if (
+        nameRef.current.value.length < 1 ||
+        nameRef.current.value.length > 50
+      ) {
         setIsError(true);
-        setError("Name is required.");
+        setError("Name must be between 1-50 characters.");
         return;
       }
-      if (descriptionRef.current.value === "") {
+      if (
+        descriptionRef.current.value.length < 1 ||
+        descriptionRef.current.value.length > 200
+      ) {
         setIsError(true);
-        setError("Description is required.");
+        setError("Description must be between 1-200 characters.");
         return;
       }
-      if (brandRef.current.value === "") {
+      if (
+        brandRef.current.value.length < 1 ||
+        brandRef.current.value.length > 50
+      ) {
         setIsError(true);
-        setError("Brand is required.");
+        setError("Brand must be between 1-50 characters.");
         return;
       }
 
@@ -108,6 +117,7 @@ const CreateTool = () => {
             ref={nameRef}
             autoComplete="off"
             required
+            maxLength={50}
           />
         </div>
 
@@ -123,6 +133,7 @@ const CreateTool = () => {
             ref={descriptionRef}
             autoComplete="off"
             required
+            maxLength={200}
           />
         </div>
 
@@ -138,6 +149,7 @@ const CreateTool = () => {
             ref={brandRef}
             autoComplete="off"
             required
+            maxLength={50}
           />
         </div>
 
