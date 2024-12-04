@@ -54,15 +54,15 @@ const ReadTools = () => {
         !isError &&
         tools.map(
           (tool: {
-            _id: string;
+            id: string;
             name: string;
             description: string;
             brand: string;
             image: string;
             worker: string;
-            isApproved: boolean;
+            approved: boolean;
           }) => (
-            <div key={tool._id} className="m-5 border p-5">
+            <div key={tool.id} className="m-5 border p-5">
               <img
                 className="aspect-video object-cover"
                 src={
@@ -78,40 +78,38 @@ const ReadTools = () => {
               <div>Brand: {tool.brand}</div>
               <div>
                 Available to borrow:{" "}
-                {tool.isApproved && !tool.worker ? "Yes" : "No"}
+                {tool.approved && !tool.worker ? "Yes" : "No"}
               </div>
               <div>
-                Pending manager approval: {tool.isApproved ? "No" : "Yes"}
+                Pending manager approval: {tool.approved ? "No" : "Yes"}
               </div>
-              {userCtx?.role === "manager" &&
-                tool.isApproved &&
-                !tool.worker && (
-                  <>
-                    <Link
-                      className="m-1 border p-1"
-                      to={"/updatetool/" + tool._id}
-                    >
-                      Update
-                    </Link>
-                    <Link
-                      className="m-1 border p-1"
-                      to={"/deletetool/" + tool._id}
-                    >
-                      Delete
-                    </Link>
-                  </>
-                )}
-              {userCtx?.role === "manager" && !tool.isApproved && (
+              {userCtx?.role === "manager" && tool.approved && !tool.worker && (
                 <>
                   <Link
                     className="m-1 border p-1"
-                    to={"/approvetool/" + tool._id}
+                    to={"/updatetool/" + tool.id}
+                  >
+                    Update
+                  </Link>
+                  <Link
+                    className="m-1 border p-1"
+                    to={"/deletetool/" + tool.id}
+                  >
+                    Delete
+                  </Link>
+                </>
+              )}
+              {userCtx?.role === "manager" && !tool.approved && (
+                <>
+                  <Link
+                    className="m-1 border p-1"
+                    to={"/approvetool/" + tool.id}
                   >
                     Approve
                   </Link>
                   <Link
                     className="m-1 border p-1"
-                    to={"/rejecttool/" + tool._id}
+                    to={"/rejecttool/" + tool.id}
                   >
                     Reject
                   </Link>
@@ -122,15 +120,12 @@ const ReadTools = () => {
                   {tool.worker ? (
                     <Link
                       className="m-1 border p-1"
-                      to={"/removetool/" + tool._id}
+                      to={"/removetool/" + tool.id}
                     >
                       Return
                     </Link>
                   ) : (
-                    <Link
-                      className="m-1 border p-1"
-                      to={"/addtool/" + tool._id}
-                    >
+                    <Link className="m-1 border p-1" to={"/addtool/" + tool.id}>
                       Borrow
                     </Link>
                   )}
