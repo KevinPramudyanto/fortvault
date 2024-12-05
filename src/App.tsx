@@ -17,6 +17,7 @@ import RemoveWorker from "./pages/RemoveWorker";
 import ReadTools from "./pages/ReadTools";
 import AddTool from "./pages/AddTool";
 import RemoveTool from "./pages/RemoveTool";
+import GetNotifications from "./pages/GetNotifications";
 import NotFound from "./pages/NotFound";
 import UserContext from "./context/user.tsx";
 
@@ -57,6 +58,10 @@ function App() {
                 <Route
                   path="/removeworker/:id"
                   element={<RemoveWorker />}
+                ></Route>
+                <Route
+                  path="/getnotifications"
+                  element={<GetNotifications />}
                 ></Route>
                 <Route path="/signout" element={<Signout />}></Route>
               </>

@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
+import Header from "../components/common/Header";
 import UserContext from "../context/user.tsx";
 import { getWorkers } from "../api/api.ts";
 
@@ -17,20 +18,7 @@ const GetWorkers = () => {
 
   return (
     <div className="m-auto max-w-md">
-      <div className="flex items-center justify-center gap-5 text-left text-2xl font-bold sm:text-3xl">
-        <NavLink
-          to="/readtools"
-          className={({ isActive }) => (isActive ? "underline" : "")}
-        >
-          Items
-        </NavLink>
-        <NavLink
-          to="/getworkers"
-          className={({ isActive }) => (isActive ? "underline" : "")}
-        >
-          Workers
-        </NavLink>
-      </div>
+      <Header />
 
       {userCtx?.role === "manager" && (
         <Link
