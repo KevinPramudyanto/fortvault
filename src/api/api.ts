@@ -303,3 +303,19 @@ export const rejectTool = async (id: string) => {
     }
   }
 };
+
+export const readImages = async () => {
+  try {
+    const response = await axios.get(
+      "https://images-api.nasa.gov/search?q=construction",
+    );
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message || error.response.data.msg;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
