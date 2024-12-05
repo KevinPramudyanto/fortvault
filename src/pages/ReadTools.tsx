@@ -118,12 +118,14 @@ const ReadTools = () => {
               {userCtx?.role === "worker" && (
                 <>
                   {tool.worker ? (
-                    <Link
-                      className="m-1 border p-1"
-                      to={"/removetool/" + tool.id}
-                    >
-                      Return
-                    </Link>
+                    tool.worker === userCtx?.id && (
+                      <Link
+                        className="m-1 border p-1"
+                        to={"/removetool/" + tool.id}
+                      >
+                        Return
+                      </Link>
+                    )
                   ) : (
                     <Link className="m-1 border p-1" to={"/addtool/" + tool.id}>
                       Borrow

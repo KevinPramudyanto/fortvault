@@ -21,8 +21,10 @@ const Signin = () => {
     mutationFn: signin,
     onSuccess: (data) => {
       userCtx?.setToken(data.token);
+      userCtx?.setId(data.id);
       userCtx?.setRole(data.role);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("id", data.id);
       localStorage.setItem("role", data.role);
       navigate("/", { replace: true });
     },

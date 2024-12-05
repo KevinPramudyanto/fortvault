@@ -6,8 +6,10 @@ const Signout = () => {
 
   useEffect(() => {
     localStorage.removeItem("token");
+    localStorage.removeItem("id");
     localStorage.removeItem("role");
     userCtx?.setToken(null);
+    userCtx?.setId(null);
     userCtx?.setRole(null);
   }, []);
 
