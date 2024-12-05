@@ -1,10 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { removeWorker } from "../api/api.ts";
 
 const RemoveWorker = () => {
+  const usernameRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
+  const username = location.state;
 
   const {
     mutate,
@@ -29,6 +33,22 @@ const RemoveWorker = () => {
         Remove Worker
       </div>
       <form className="p-5 sm:p-10" onSubmit={handleRemoveWorker}>
+        <div className="mb-5 flex flex-col gap-2">
+          <label className="text-left font-semibold" htmlFor="username">
+            Username :
+          </label>
+          <input
+            className="rounded border border-black p-2 focus:outline-black"
+            id="username"
+            type="text"
+            placeholder="Username"
+            ref={usernameRef}
+            autoComplete="off"
+            disabled
+            defaultValue={username}
+          />
+        </div>
+
         <button
           disabled={isRequestPending}
           className={

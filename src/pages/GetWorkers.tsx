@@ -52,25 +52,18 @@ const GetWorkers = () => {
 
       {!isPending &&
         !isError &&
-        workers.map(
-          (worker: {
-            _id: string;
-            username: string;
-            description: string;
-            brand: string;
-            worker: string;
-          }) => (
-            <div key={worker._id} className="m-5 border p-5">
-              <div>Username: {worker.username}</div>
-              <Link
-                className="m-1 border p-1"
-                to={"/removeworker/" + worker._id}
-              >
-                Remove
-              </Link>
-            </div>
-          ),
-        )}
+        workers.map((worker: { id: string; username: string }) => (
+          <div key={worker.id} className="m-5 border p-5">
+            <div>Username: {worker.username}</div>
+            <Link
+              className="m-1 border p-1"
+              to={"/removeworker/" + worker.id}
+              state={worker.username}
+            >
+              Remove
+            </Link>
+          </div>
+        ))}
     </div>
   );
 };

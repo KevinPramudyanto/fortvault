@@ -27,9 +27,12 @@ const AddWorker = () => {
     setError("");
 
     if (usernameRef.current) {
-      if (usernameRef.current.value === "") {
+      if (
+        usernameRef.current.value.length < 1 ||
+        usernameRef.current.value.length > 20
+      ) {
         setIsError(true);
-        setError("Username is required.");
+        setError("Username must be between 1-20 characters.");
         return;
       }
 
@@ -55,6 +58,7 @@ const AddWorker = () => {
             ref={usernameRef}
             autoComplete="off"
             required
+            maxLength={20}
           />
         </div>
 
