@@ -66,7 +66,7 @@ const AddWorker = () => {
           disabled={isRequestPending}
           className={
             isRequestPending
-              ? "mt-3 rounded bg-neutral-200 px-4 py-3 font-semibold text-white"
+              ? "submitting mt-3 rounded px-4 py-3 font-semibold text-white"
               : "mt-3 rounded bg-green-800 px-4 py-3 font-semibold text-white hover:bg-green-900"
           }
         >
