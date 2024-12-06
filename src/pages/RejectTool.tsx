@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { readTool, rejectTool } from "../api/api.ts";
+import { readTool, getWorkers, rejectTool } from "../api/api.ts";
 
 const RejectTool = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
@@ -19,6 +19,13 @@ const RejectTool = () => {
     queryKey: ["tool", id],
     queryFn: () => readTool(id || ""),
   });
+
+  const {
+    data: workers = [],
+    isPending: isWorkersReadPending,
+    isError: isWorkersReadError,
+    error: workersReadError,
+  } = useQuery({ queryKey: ["workers"], queryFn: getWorkers });
 
   const {
     mutate,
@@ -92,20 +99,30 @@ const RejectTool = () => {
         </div>
 
         <button
-          disabled={isReadPending || isRequestPending}
+          disabled={isReadPending || isWorkersReadPending || isRequestPending}
           className={
-            isReadPending || isRequestPending
+            isReadPending || isWorkersReadPending || isRequestPending
               ? "submitting mt-3 rounded px-4 py-3 font-semibold text-white"
               : "mt-3 rounded bg-green-800 px-4 py-3 font-semibold text-white hover:bg-green-900"
           }
         >
-          Reject this item ?
+          Reject{" "}
+          {!isWorkersReadPending &&
+            !isWorkersReadError &&
+            workers.find((worker: { id: string }) => tool.worker === worker.id)
+              ?.username}{" "}
+          to borrow this item ?
         </button>
       </form>
 
       {isReadError && (
         <div className="m-2 border border-red-600 p-2 font-bold text-red-600">
           {readError.message}
+        </div>
+      )}
+      {isWorkersReadError && (
+        <div className="m-2 border border-red-600 p-2 font-bold text-red-600">
+          {workersReadError.message}
         </div>
       )}
       {isRequestError && (

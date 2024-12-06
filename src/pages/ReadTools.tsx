@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
 import Header from "../components/common/Header";
+import ReadToolsCard from "../components/readtools/ReadToolsCard";
 import UserContext from "../context/user.tsx";
-import { readTools } from "../api/api.ts";
+import { readTools, getWorkers } from "../api/api.ts";
 
 const ReadTools = () => {
   const userCtx = useContext(UserContext);
@@ -16,8 +17,15 @@ const ReadTools = () => {
     error,
   } = useQuery({ queryKey: ["tools"], queryFn: readTools });
 
+  const {
+    data: workers = [],
+    isPending: isWorkersReadPending,
+    isError: isWorkersReadError,
+    error: workersReadError,
+  } = useQuery({ queryKey: ["workers"], queryFn: getWorkers });
+
   return (
-    <div className="m-auto max-w-md">
+    <div className="m-auto">
       <Header />
 
       {userCtx?.role === "manager" && (
@@ -30,98 +38,49 @@ const ReadTools = () => {
         </Link>
       )}
 
-      {isPending && <div>Loading data in progress...</div>}
+      {(isPending || isWorkersReadPending) && (
+        <div>Loading data in progress...</div>
+      )}
 
       {isError && <div>Error: {error.message}</div>}
+      {isWorkersReadError && <div>Error: {workersReadError.message}</div>}
 
       {!isPending && !isError && tools.length === 0 && <div>No items yet</div>}
 
-      {!isPending &&
-        !isError &&
-        tools.map(
-          (tool: {
-            id: string;
-            name: string;
-            description: string;
-            brand: string;
-            image: string;
-            worker: string;
-            approved: boolean;
-          }) => (
-            <div key={tool.id} className="m-5 border p-5">
-              <img
-                className="aspect-video object-cover"
-                src={
-                  "https://res.cloudinary.com/" +
-                  import.meta.env.VITE_CLOUDNAME +
-                  "/image/upload/" +
-                  tool.image
+      {!isPending && !isError && (
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8">
+          {tools.map(
+            (tool: {
+              id: string;
+              name: string;
+              description: string;
+              brand: string;
+              image: string;
+              worker: string;
+              workerUsername: string;
+              approved: boolean;
+            }) => (
+              <ReadToolsCard
+                key={tool.id}
+                id={tool.id}
+                name={tool.name}
+                description={tool.description}
+                brand={tool.brand}
+                image={tool.image}
+                worker={tool.worker}
+                workerUsername={
+                  !isWorkersReadPending &&
+                  !isWorkersReadError &&
+                  workers.find(
+                    (worker: { id: string }) => tool.worker === worker.id,
+                  )?.username
                 }
-                alt={tool.image}
+                approved={tool.approved}
               />
-              <div>Name: {tool.name}</div>
-              <div>Description: {tool.description}</div>
-              <div>Brand: {tool.brand}</div>
-              <div>
-                Available to borrow:{" "}
-                {tool.approved && !tool.worker ? "Yes" : "No"}
-              </div>
-              <div>
-                Pending manager approval: {tool.approved ? "No" : "Yes"}
-              </div>
-              {userCtx?.role === "manager" && tool.approved && !tool.worker && (
-                <>
-                  <Link
-                    className="m-1 border p-1"
-                    to={"/updatetool/" + tool.id}
-                  >
-                    Update
-                  </Link>
-                  <Link
-                    className="m-1 border p-1"
-                    to={"/deletetool/" + tool.id}
-                  >
-                    Delete
-                  </Link>
-                </>
-              )}
-              {userCtx?.role === "manager" && !tool.approved && (
-                <>
-                  <Link
-                    className="m-1 border p-1"
-                    to={"/approvetool/" + tool.id}
-                  >
-                    Approve
-                  </Link>
-                  <Link
-                    className="m-1 border p-1"
-                    to={"/rejecttool/" + tool.id}
-                  >
-                    Reject
-                  </Link>
-                </>
-              )}
-              {userCtx?.role === "worker" && (
-                <>
-                  {tool.worker ? (
-                    tool.worker === userCtx?.id && (
-                      <Link
-                        className="m-1 border p-1"
-                        to={"/removetool/" + tool.id}
-                      >
-                        Return
-                      </Link>
-                    )
-                  ) : (
-                    <Link className="m-1 border p-1" to={"/addtool/" + tool.id}>
-                      Borrow
-                    </Link>
-                  )}
-                </>
-              )}
-            </div>
-          ),
-        )}
+            ),
+          )}
+        </div>
+      )}
     </div>
   );
 };
