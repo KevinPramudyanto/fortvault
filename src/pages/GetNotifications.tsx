@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import Header from "../components/common/Header";
 import UserContext from "../context/user.tsx";
 import { readTools } from "../api/api.ts";
 
@@ -16,9 +15,7 @@ const GetNotifications = () => {
   } = useQuery({ queryKey: ["tools"], queryFn: readTools });
 
   return (
-    <div className="m-auto max-w-md">
-      <Header />
-
+    <div className="m-auto">
       {isPending && <div>Loading data in progress...</div>}
 
       {isError && <div>Error: {error.message}</div>}

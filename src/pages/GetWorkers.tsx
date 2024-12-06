@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
-import Header from "../components/common/Header";
 import UserContext from "../context/user.tsx";
 import { getWorkers } from "../api/api.ts";
 
@@ -17,9 +16,7 @@ const GetWorkers = () => {
   } = useQuery({ queryKey: ["workers"], queryFn: getWorkers });
 
   return (
-    <div className="m-auto max-w-md">
-      <Header />
-
+    <div className="m-auto">
       {userCtx?.role === "manager" && (
         <Link
           to={"/addworker"}

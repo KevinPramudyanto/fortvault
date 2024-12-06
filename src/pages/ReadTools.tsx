@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
-import Header from "../components/common/Header";
 import ReadToolsCard from "../components/readtools/ReadToolsCard";
 import UserContext from "../context/user.tsx";
 import { readTools, getWorkers } from "../api/api.ts";
@@ -26,8 +25,6 @@ const ReadTools = () => {
 
   return (
     <div className="m-auto">
-      <Header />
-
       {userCtx?.role === "manager" && (
         <Link
           to={"/createtool"}

@@ -19,6 +19,7 @@ import AddTool from "./pages/AddTool";
 import RemoveTool from "./pages/RemoveTool";
 import GetNotifications from "./pages/GetNotifications";
 import NotFound from "./pages/NotFound";
+import Header from "./pages/Header";
 import UserContext from "./context/user.tsx";
 
 const queryClient = new QueryClient();
@@ -36,59 +37,74 @@ function App() {
         value={{ token, setToken, id, setId, role, setRole }}
       >
         <Navbar />
-        <div className="m-auto max-w-screen-xl px-5 sm:px-10">
-          <Routes>
-            {token && role === "manager" ? (
-              <>
-                <Route
-                  path="/"
-                  element={<Navigate replace to="/readtools" />}
-                />
-                <Route path="/createtool" element={<CreateTool />}></Route>
-                <Route path="/readtools" element={<ReadTools />}></Route>
-                <Route path="/updatetool/:id" element={<UpdateTool />}></Route>
-                <Route path="/deletetool/:id" element={<DeleteTool />}></Route>
-                <Route
-                  path="/approvetool/:id"
-                  element={<ApproveTool />}
-                ></Route>
-                <Route path="/rejecttool/:id" element={<RejectTool />}></Route>
-                <Route path="/addworker" element={<AddWorker />}></Route>
-                <Route path="/getworkers" element={<GetWorkers />}></Route>
-                <Route
-                  path="/removeworker/:id"
-                  element={<RemoveWorker />}
-                ></Route>
-                <Route
-                  path="/getnotifications"
-                  element={<GetNotifications />}
-                ></Route>
-                <Route path="/signout" element={<Signout />}></Route>
-              </>
-            ) : token && role === "worker" ? (
-              <>
-                <Route
-                  path="/"
-                  element={<Navigate replace to="/readtools" />}
-                />
-                <Route path="/readtools" element={<ReadTools />}></Route>
-                <Route path="/addtool/:id" element={<AddTool />}></Route>
-                <Route path="/removetool/:id" element={<RemoveTool />}></Route>
-                <Route path="/signout" element={<Signout />}></Route>
-              </>
-            ) : (
-              <>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<Signup />}></Route>
-                <Route path="/signin" element={<Signin />}></Route>
-                <Route
-                  path="/signout"
-                  element={<Navigate replace to="/" />}
-                ></Route>
-              </>
-            )}
-            <Route path="*" element={<NotFound />}></Route>
-          </Routes>
+        <div className="flex">
+          {token && (role === "manager" || role === "worker") && <Header />}
+          <div className="m-auto w-full max-w-screen-xl px-5 sm:px-10">
+            <Routes>
+              {token && role === "manager" ? (
+                <>
+                  <Route
+                    path="/"
+                    element={<Navigate replace to="/readtools" />}
+                  />
+                  <Route path="/createtool" element={<CreateTool />}></Route>
+                  <Route path="/readtools" element={<ReadTools />}></Route>
+                  <Route
+                    path="/updatetool/:id"
+                    element={<UpdateTool />}
+                  ></Route>
+                  <Route
+                    path="/deletetool/:id"
+                    element={<DeleteTool />}
+                  ></Route>
+                  <Route
+                    path="/approvetool/:id"
+                    element={<ApproveTool />}
+                  ></Route>
+                  <Route
+                    path="/rejecttool/:id"
+                    element={<RejectTool />}
+                  ></Route>
+                  <Route path="/addworker" element={<AddWorker />}></Route>
+                  <Route path="/getworkers" element={<GetWorkers />}></Route>
+                  <Route
+                    path="/removeworker/:id"
+                    element={<RemoveWorker />}
+                  ></Route>
+                  <Route
+                    path="/getnotifications"
+                    element={<GetNotifications />}
+                  ></Route>
+                  <Route path="/signout" element={<Signout />}></Route>
+                </>
+              ) : token && role === "worker" ? (
+                <>
+                  <Route
+                    path="/"
+                    element={<Navigate replace to="/readtools" />}
+                  />
+                  <Route path="/readtools" element={<ReadTools />}></Route>
+                  <Route path="/addtool/:id" element={<AddTool />}></Route>
+                  <Route
+                    path="/removetool/:id"
+                    element={<RemoveTool />}
+                  ></Route>
+                  <Route path="/signout" element={<Signout />}></Route>
+                </>
+              ) : (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/signup" element={<Signup />}></Route>
+                  <Route path="/signin" element={<Signin />}></Route>
+                  <Route
+                    path="/signout"
+                    element={<Navigate replace to="/" />}
+                  ></Route>
+                </>
+              )}
+              <Route path="*" element={<NotFound />}></Route>
+            </Routes>
+          </div>
         </div>
       </UserContext.Provider>
     </QueryClientProvider>
