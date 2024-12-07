@@ -39,8 +39,16 @@ const ReadTools = () => {
         <div>Loading data in progress...</div>
       )}
 
-      {isError && <div>Error: {error.message}</div>}
-      {isWorkersReadError && <div>Error: {workersReadError.message}</div>}
+      {isError && (
+        <div className="mx-auto my-2 max-w-md border border-red-600 p-2 font-bold text-red-600">
+          Error: {error.message}
+        </div>
+      )}
+      {isWorkersReadError && (
+        <div className="mx-auto my-2 max-w-md border border-red-600 p-2 font-bold text-red-600">
+          Error: {workersReadError.message}
+        </div>
+      )}
 
       {!isPending && !isError && tools.length === 0 && <div>No items yet</div>}
 

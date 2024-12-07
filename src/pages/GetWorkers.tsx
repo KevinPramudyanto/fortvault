@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
+import GetWorkersCard from "../components/getworkers/GetWorkersCard";
 import UserContext from "../context/user.tsx";
 import { getWorkers } from "../api/api.ts";
 
@@ -16,7 +17,7 @@ const GetWorkers = () => {
   } = useQuery({ queryKey: ["workers"], queryFn: getWorkers });
 
   return (
-    <div className="m-auto">
+    <div className="m-auto max-w-xl">
       {userCtx?.role === "manager" && (
         <Link
           to={"/addworker"}
@@ -29,26 +30,27 @@ const GetWorkers = () => {
 
       {isPending && <div>Loading data in progress...</div>}
 
-      {isError && <div>Error: {error.message}</div>}
+      {isError && (
+        <div className="mx-auto my-2 max-w-md border border-red-600 p-2 font-bold text-red-600">
+          Error: {error.message}
+        </div>
+      )}
 
       {!isPending && !isError && workers.length === 0 && (
         <div>No workers yet</div>
       )}
 
-      {!isPending &&
-        !isError &&
-        workers.map((worker: { id: string; username: string }) => (
-          <div key={worker.id} className="m-5 border p-5">
-            <div>Username: {worker.username}</div>
-            <Link
-              className="m-1 border p-1"
-              to={"/removeworker/" + worker.id}
-              state={worker.username}
-            >
-              Remove
-            </Link>
-          </div>
-        ))}
+      {!isPending && !isError && (
+        <div className="flex flex-col gap-5">
+          {workers.map((worker: { id: string; username: string }) => (
+            <GetWorkersCard
+              key={worker.id}
+              id={worker.id}
+              username={worker.username}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

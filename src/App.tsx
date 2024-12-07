@@ -106,6 +106,9 @@ function App() {
             </Routes>
           </div>
         </div>
+        {token && (role === "manager" || role === "worker") && (
+          <div className="p-9 text-white sm:hidden">Footer</div>
+        )}
       </UserContext.Provider>
     </QueryClientProvider>
   );
