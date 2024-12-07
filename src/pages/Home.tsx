@@ -8,7 +8,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="mb-20 flex flex-col">
+      <div className="mb-20 mt-14 flex flex-col">
         <div className="text-2xl font-bold sm:text-3xl">
           Seamless inventory management for your business
         </div>

@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import UserContext from "../context/user.tsx";
 import { readTool, addTool } from "../api/api.ts";
 
 const AddTool = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const brandRef = useRef<HTMLInputElement | null>(null);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -29,6 +31,10 @@ const AddTool = () => {
     mutationFn: addTool,
     onSuccess: () => {
       navigate("/", { replace: true });
+      userCtx?.setSnackbarMessage(
+        "Tool request is submitted. Pending for approval.",
+      );
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

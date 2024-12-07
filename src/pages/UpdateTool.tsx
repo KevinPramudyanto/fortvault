@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import UserContext from "../context/user.tsx";
 import { readTool, updateTool } from "../api/api.ts";
 
 const UpdateTool = () => {
@@ -9,6 +10,7 @@ const UpdateTool = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const brandRef = useRef<HTMLInputElement | null>(null);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -31,7 +33,9 @@ const UpdateTool = () => {
     mutationFn: (data: { name: string; description: string; brand: string }) =>
       updateTool(id || "", data),
     onSuccess: () => {
-      navigate("/", { replace: true });
+      navigate("/readtools", { replace: true });
+      userCtx?.setSnackbarMessage("Tool updated successfully");
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import UserContext from "../context/user.tsx";
 import { uploadTool, createTool } from "../api/api.ts";
 
 const CreateTool = () => {
@@ -11,6 +12,7 @@ const CreateTool = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const brandRef = useRef<HTMLInputElement | null>(null);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
   const {
@@ -32,7 +34,9 @@ const CreateTool = () => {
   } = useMutation({
     mutationFn: createTool,
     onSuccess: () => {
-      navigate("/", { replace: true });
+      navigate("/readtools", { replace: true });
+      userCtx?.setSnackbarMessage("Tool added successfully");
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

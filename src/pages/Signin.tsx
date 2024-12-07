@@ -9,8 +9,8 @@ const Signin = () => {
   const [error, setError] = useState("");
   const usernameRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const navigate = useNavigate();
   const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
 
   const {
     mutate,
@@ -27,6 +27,8 @@ const Signin = () => {
       localStorage.setItem("id", data.id);
       localStorage.setItem("role", data.role);
       navigate("/", { replace: true });
+      userCtx?.setSnackbarMessage(`Welcome ${usernameRef.current?.value} !`);
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

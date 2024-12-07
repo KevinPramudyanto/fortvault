@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import UserContext from "../context/user.tsx";
 import { readTool, getWorkers, approveTool } from "../api/api.ts";
 
 const ApproveTool = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const brandRef = useRef<HTMLInputElement | null>(null);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -36,6 +38,8 @@ const ApproveTool = () => {
     mutationFn: approveTool,
     onSuccess: () => {
       navigate("/", { replace: true });
+      userCtx?.setSnackbarMessage("Tool request is approved.");
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

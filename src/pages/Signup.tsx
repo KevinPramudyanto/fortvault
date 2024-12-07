@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import UserContext from "../context/user.tsx";
 import { signup } from "../api/api.ts";
 
 const Signup = () => {
@@ -10,6 +11,7 @@ const Signup = () => {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const confirmRef = useRef<HTMLInputElement | null>(null);
   const roleRef = useRef<HTMLSelectElement | null>(null);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
   const {
@@ -21,6 +23,8 @@ const Signup = () => {
     mutationFn: signup,
     onSuccess: () => {
       navigate("/", { replace: true });
+      userCtx?.setSnackbarMessage("Sign up successful");
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

@@ -1,12 +1,14 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import UserContext from "../context/user.tsx";
 import { addWorker } from "../api/api.ts";
 
 const AddWorker = () => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   const usernameRef = useRef<HTMLInputElement | null>(null);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
   const {
@@ -18,6 +20,10 @@ const AddWorker = () => {
     mutationFn: addWorker,
     onSuccess: () => {
       navigate("/getworkers", { replace: true });
+      userCtx?.setSnackbarMessage(
+        `${usernameRef.current?.value} added to your store.`,
+      );
+      userCtx?.setSnackbarOpen(true);
     },
   });
 

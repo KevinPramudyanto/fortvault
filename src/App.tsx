@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Snackbar, SnackbarContent } from "@mui/material";
 import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -30,13 +31,38 @@ function App() {
   );
   const [id, setId] = useState<string | null>(localStorage.getItem("id"));
   const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider
-        value={{ token, setToken, id, setId, role, setRole }}
+        value={{
+          token,
+          setToken,
+          id,
+          setId,
+          role,
+          setRole,
+          setSnackbarOpen,
+          setSnackbarMessage,
+        }}
       >
         <Navbar />
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarOpen(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <SnackbarContent
+            message={snackbarMessage}
+            sx={{
+              backgroundColor: "darkgreen",
+              fontSize: "16px",
+            }}
+          />
+        </Snackbar>
         <div className="flex">
           {token && (role === "manager" || role === "worker") && <Header />}
           <div className="mx-auto w-full max-w-screen-xl px-5 sm:px-10">
