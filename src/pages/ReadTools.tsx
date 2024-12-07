@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
+import { FaBoxOpen } from "react-icons/fa";
 import ReadToolsSkeleton from "../components/readtools/ReadToolsSkeleton";
 import ReadToolsCard from "../components/readtools/ReadToolsCard";
 import UserContext from "../context/user.tsx";
@@ -60,7 +61,12 @@ const ReadTools = () => {
       {!isPending &&
         !isWorkersReadPending &&
         !isError &&
-        tools.length === 0 && <div>No items yet</div>}
+        tools.length === 0 && (
+          <div className="m-5 flex flex-col items-center justify-center text-green-900">
+            <FaBoxOpen size={80} />
+            <div className="text-2xl font-semibold">No items yet</div>
+          </div>
+        )}
 
       {!isPending && !isWorkersReadPending && !isError && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8">

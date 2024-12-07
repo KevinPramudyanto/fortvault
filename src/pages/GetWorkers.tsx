@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
+import { GrUserWorker } from "react-icons/gr";
 import GetWorkersSkeleton from "../components/getworkers/GetWorkersSkeleton";
 import GetWorkersCard from "../components/getworkers/GetWorkersCard";
 import UserContext from "../context/user.tsx";
@@ -46,7 +47,10 @@ const GetWorkers = () => {
       )}
 
       {!isPending && !isError && workers.length === 0 && (
-        <div>No workers yet</div>
+        <div className="m-5 flex flex-col items-center justify-center text-green-900">
+          <GrUserWorker size={80} />
+          <div className="text-2xl font-semibold">No workers yet</div>
+        </div>
       )}
 
       {!isPending && !isError && (

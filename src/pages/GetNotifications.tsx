@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import GetNotificationsSkeleton from "../components/getnotifications/GetNotificationsSkeleton";
 import GetNotificationsCard from "../components/getnotifications/GetNotificationsCard";
+import { IoFileTray } from "react-icons/io5";
 import { readTools, getWorkers } from "../api/api.ts";
 
 const GetNotifications = () => {
@@ -45,7 +46,12 @@ const GetNotifications = () => {
         !isWorkersReadPending &&
         !isError &&
         tools.filter((tool: { approved: boolean }) => !tool.approved).length ===
-          0 && <div>No notifications yet</div>}
+          0 && (
+          <div className="m-5 flex flex-col items-center justify-center text-green-900">
+            <IoFileTray size={80} />
+            <div className="text-2xl font-semibold">No notifications yet</div>
+          </div>
+        )}
 
       {!isPending && !isWorkersReadPending && !isError && (
         <div className="flex flex-col gap-5">
