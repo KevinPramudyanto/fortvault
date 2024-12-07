@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import GetNotificationsSkeleton from "../components/getnotifications/GetNotificationsSkeleton";
 import GetNotificationsCard from "../components/getnotifications/GetNotificationsCard";
 import { readTools, getWorkers } from "../api/api.ts";
 
@@ -20,7 +21,13 @@ const GetNotifications = () => {
   return (
     <div className="m-auto">
       {(isPending || isWorkersReadPending) && (
-        <div>Loading data in progress...</div>
+        <div className="flex flex-col gap-5">
+          {Array(12)
+            .fill("a")
+            .map((_, idx) => (
+              <GetNotificationsSkeleton key={idx} />
+            ))}
+        </div>
       )}
 
       {isError && (
@@ -35,11 +42,12 @@ const GetNotifications = () => {
       )}
 
       {!isPending &&
+        !isWorkersReadPending &&
         !isError &&
         tools.filter((tool: { approved: boolean }) => !tool.approved).length ===
           0 && <div>No notifications yet</div>}
 
-      {!isPending && !isError && (
+      {!isPending && !isWorkersReadPending && !isError && (
         <div className="flex flex-col gap-5">
           {tools.map(
             (tool: {

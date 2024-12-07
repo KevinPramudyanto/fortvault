@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
+import ReadToolsSkeleton from "../components/readtools/ReadToolsSkeleton";
 import ReadToolsCard from "../components/readtools/ReadToolsCard";
 import UserContext from "../context/user.tsx";
 import { readTools, getWorkers } from "../api/api.ts";
@@ -36,7 +37,13 @@ const ReadTools = () => {
       )}
 
       {(isPending || isWorkersReadPending) && (
-        <div>Loading data in progress...</div>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8">
+          {Array(12)
+            .fill("a")
+            .map((_, idx) => (
+              <ReadToolsSkeleton key={idx} />
+            ))}
+        </div>
       )}
 
       {isError && (
@@ -50,9 +57,12 @@ const ReadTools = () => {
         </div>
       )}
 
-      {!isPending && !isError && tools.length === 0 && <div>No items yet</div>}
+      {!isPending &&
+        !isWorkersReadPending &&
+        !isError &&
+        tools.length === 0 && <div>No items yet</div>}
 
-      {!isPending && !isError && (
+      {!isPending && !isWorkersReadPending && !isError && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8">
           {tools.map(
             (tool: {

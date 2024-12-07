@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosAddCircle } from "react-icons/io";
+import GetWorkersSkeleton from "../components/getworkers/GetWorkersSkeleton";
 import GetWorkersCard from "../components/getworkers/GetWorkersCard";
 import UserContext from "../context/user.tsx";
 import { getWorkers } from "../api/api.ts";
@@ -28,7 +29,15 @@ const GetWorkers = () => {
         </Link>
       )}
 
-      {isPending && <div>Loading data in progress...</div>}
+      {isPending && (
+        <div className="flex flex-col gap-5">
+          {Array(12)
+            .fill("a")
+            .map((_, idx) => (
+              <GetWorkersSkeleton key={idx} />
+            ))}
+        </div>
+      )}
 
       {isError && (
         <div className="mx-auto my-2 max-w-md border border-red-600 p-2 font-bold text-red-600">
