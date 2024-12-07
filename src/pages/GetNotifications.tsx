@@ -1,12 +1,8 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import UserContext from "../context/user.tsx";
-import { readTools } from "../api/api.ts";
+import GetNotificationsCard from "../components/getnotifications/GetNotificationsCard";
+import { readTools, getWorkers } from "../api/api.ts";
 
 const GetNotifications = () => {
-  const userCtx = useContext(UserContext);
-
   const {
     data: tools = [],
     isPending,
@@ -14,51 +10,64 @@ const GetNotifications = () => {
     error,
   } = useQuery({ queryKey: ["tools"], queryFn: readTools });
 
+  const {
+    data: workers = [],
+    isPending: isWorkersReadPending,
+    isError: isWorkersReadError,
+    error: workersReadError,
+  } = useQuery({ queryKey: ["workers"], queryFn: getWorkers });
+
   return (
     <div className="m-auto">
-      {isPending && <div>Loading data in progress...</div>}
+      {(isPending || isWorkersReadPending) && (
+        <div>Loading data in progress...</div>
+      )}
 
       {isError && (
         <div className="mx-auto my-2 max-w-md border border-red-600 p-2 font-bold text-red-600">
           Error: {error.message}
         </div>
       )}
+      {isWorkersReadError && (
+        <div className="mx-auto my-2 max-w-md border border-red-600 p-2 font-bold text-red-600">
+          Error: {workersReadError.message}
+        </div>
+      )}
 
       {!isPending &&
         !isError &&
-        tools.map(
-          (tool: {
-            id: string;
-            name: string;
-            description: string;
-            brand: string;
-            image: string;
-            worker: string;
-            approved: boolean;
-          }) =>
-            !tool.approved && (
-              <div key={tool.id} className="m-5 border p-5">
-                <div>Name: {tool.name}</div>
-                <div>Brand: {tool.brand}</div>
-                {userCtx?.role === "manager" && !tool.approved && (
-                  <>
-                    <Link
-                      className="m-1 border p-1"
-                      to={"/approvetool/" + tool.id}
-                    >
-                      Approve
-                    </Link>
-                    <Link
-                      className="m-1 border p-1"
-                      to={"/rejecttool/" + tool.id}
-                    >
-                      Reject
-                    </Link>
-                  </>
-                )}
-              </div>
-            ),
-        )}
+        tools.filter((tool: { approved: boolean }) => !tool.approved).length ===
+          0 && <div>No notifications yet</div>}
+
+      {!isPending && !isError && (
+        <div className="flex flex-col gap-5">
+          {tools.map(
+            (tool: {
+              id: string;
+              name: string;
+              brand: string;
+              worker: string;
+              workerUsername: string;
+              approved: boolean;
+            }) =>
+              !tool.approved && (
+                <GetNotificationsCard
+                  key={tool.id}
+                  id={tool.id}
+                  name={tool.name}
+                  brand={tool.brand}
+                  workerUsername={
+                    !isWorkersReadPending &&
+                    !isWorkersReadError &&
+                    workers.find(
+                      (worker: { id: string }) => tool.worker === worker.id,
+                    )?.username
+                  }
+                />
+              ),
+          )}
+        </div>
+      )}
     </div>
   );
 };

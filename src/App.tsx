@@ -39,7 +39,7 @@ function App() {
         <Navbar />
         <div className="flex">
           {token && (role === "manager" || role === "worker") && <Header />}
-          <div className="m-auto w-full max-w-screen-xl px-5 sm:px-10">
+          <div className="mx-auto w-full max-w-screen-xl px-5 sm:px-10">
             <Routes>
               {token && role === "manager" ? (
                 <>
@@ -107,7 +107,7 @@ function App() {
           </div>
         </div>
         {token && (role === "manager" || role === "worker") && (
-          <div className="p-9 text-white sm:hidden">Footer</div>
+          <div className="p-9 text-white sm:p-0">Footer</div>
         )}
       </UserContext.Provider>
     </QueryClientProvider>

@@ -17,7 +17,7 @@ const Header = () => {
   } = useQuery({ queryKey: ["tools"], queryFn: readTools });
 
   return (
-    <div className="fixed bottom-0 left-0 z-10 grid w-full grid-cols-3 gap-2 border-t bg-white px-5 py-3 text-sm font-bold sm:relative sm:h-min sm:w-64 sm:flex-none sm:grid-cols-1 sm:gap-5 sm:border-0 sm:px-10 sm:text-xl">
+    <div className="fixed bottom-0 left-0 z-10 grid w-full grid-cols-3 gap-2 border-t bg-white px-5 py-3 text-sm font-bold sm:relative sm:z-auto sm:h-min sm:w-64 sm:flex-none sm:grid-cols-1 sm:gap-5 sm:border-0 sm:px-10 sm:text-xl">
       <NavLink
         to="/readtools"
         className={({ isActive }) =>
