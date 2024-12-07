@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Tooltip, tooltipClasses, TooltipProps } from "@mui/material";
 import styled from "@emotion/styled";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { FaCheck, FaShoppingCart, FaTimes } from "react-icons/fa";
+import { TbShoppingCartOff } from "react-icons/tb";
 import UserContext from "../../context/user.tsx";
 
 const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -86,10 +89,16 @@ const ReadToolsCard = ({
       {userCtx?.role === "manager" && approved && worker && (
         <div className="m-5 flex flex-wrap items-center justify-center gap-3">
           <div className="border border-green-200 px-2 py-1 font-semibold text-green-200">
-            Update
+            <div className="flex items-center justify-center gap-1">
+              <MdEdit size={20} />
+              <div>Update</div>
+            </div>
           </div>
           <div className="border border-green-200 px-2 py-1 font-semibold text-green-200">
-            Delete
+            <div className="flex items-center justify-center gap-1">
+              <MdDelete size={20} />
+              <div>Delete</div>
+            </div>
           </div>
         </div>
       )}
@@ -99,13 +108,19 @@ const ReadToolsCard = ({
             className="border border-green-800 px-2 py-1 font-semibold text-green-800 hover:bg-green-900 hover:text-white"
             to={"/updatetool/" + id}
           >
-            Update
+            <div className="flex items-center justify-center gap-1">
+              <MdEdit size={20} />
+              <div>Update</div>
+            </div>
           </Link>
           <Link
             className="border border-green-800 px-2 py-1 font-semibold text-green-800 hover:bg-green-900 hover:text-white"
             to={"/deletetool/" + id}
           >
-            Delete
+            <div className="flex items-center justify-center gap-1">
+              <MdDelete size={20} />
+              <div>Delete</div>
+            </div>
           </Link>
         </div>
       )}
@@ -115,13 +130,19 @@ const ReadToolsCard = ({
             className="border border-green-800 px-2 py-1 font-semibold text-green-800 hover:bg-green-900 hover:text-white"
             to={"/approvetool/" + id}
           >
-            Approve
+            <div className="flex items-center justify-center gap-1">
+              <FaCheck size={20} />
+              <div>Approve</div>
+            </div>
           </Link>
           <Link
             className="border border-green-800 px-2 py-1 font-semibold text-green-800 hover:bg-green-900 hover:text-white"
             to={"/rejecttool/" + id}
           >
-            Reject
+            <div className="flex items-center justify-center gap-1">
+              <FaTimes size={20} />
+              <div>Reject</div>
+            </div>
           </Link>
         </div>
       )}
@@ -132,14 +153,20 @@ const ReadToolsCard = ({
             className="border border-green-800 px-2 py-1 font-semibold text-green-800 hover:bg-green-900 hover:text-white"
             to={"/removetool/" + id}
           >
-            Return
+            <div className="flex items-center justify-center gap-1">
+              <TbShoppingCartOff size={20} />
+              <div>Return</div>
+            </div>
           </Link>
         </div>
       )}
       {userCtx?.role === "worker" && worker && worker !== userCtx?.id && (
         <div className="m-5 flex flex-wrap items-center justify-center gap-3">
           <div className="border border-green-200 px-2 py-1 font-semibold text-green-200">
-            Borrow
+            <div className="flex items-center justify-center gap-1">
+              <FaShoppingCart size={20} />
+              <div>Borrow</div>
+            </div>
           </div>
         </div>
       )}
@@ -149,7 +176,10 @@ const ReadToolsCard = ({
             className="border border-green-800 px-2 py-1 font-semibold text-green-800 hover:bg-green-900 hover:text-white"
             to={"/addtool/" + id}
           >
-            Borrow
+            <div className="flex items-center justify-center gap-1">
+              <FaShoppingCart size={20} />
+              <div>Borrow</div>
+            </div>
           </Link>
         </div>
       )}

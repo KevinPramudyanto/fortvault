@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
+import { MdDelete } from "react-icons/md";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -39,7 +40,10 @@ const GetWorkersCard = ({ id, username }: { id: string; username: string }) => {
         to={"/removeworker/" + id}
         state={username}
       >
-        Remove
+        <div className="flex items-center justify-center gap-1">
+          <MdDelete size={20} />
+          <div>Remove</div>
+        </div>
       </Link>
     </div>
   );
