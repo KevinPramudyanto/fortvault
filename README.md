@@ -1,4 +1,5 @@
 https://www.flaticon.com/free-icon/safe_2489669
+https://www.flaticon.com/free-icon/check_5610944
 
 Postgres, Flask, React Typescript
 

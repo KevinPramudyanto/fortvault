@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Snackbar, SnackbarContent } from "@mui/material";
@@ -34,6 +34,13 @@ function App() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
+  useEffect(() => {
+    document.title = snackbarMessage === "" ? "FortVault" : snackbarMessage;
+
+    const link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
+    link.href = snackbarMessage === "" ? "./safe.png" : "./check.png";
+  }, [snackbarMessage]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider
@@ -52,7 +59,10 @@ function App() {
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={3000}
-          onClose={() => setSnackbarOpen(false)}
+          onClose={() => {
+            setSnackbarOpen(false);
+            setSnackbarMessage("");
+          }}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <SnackbarContent
