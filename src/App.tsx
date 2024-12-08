@@ -20,8 +20,10 @@ import AddTool from "./pages/AddTool";
 import RemoveTool from "./pages/RemoveTool";
 import GetNotifications from "./pages/GetNotifications";
 import NotFound from "./pages/NotFound";
+import SocketBroadcast from "./pages/SocketBroadcast";
 import Header from "./pages/Header";
 import UserContext from "./context/user.tsx";
+import { socket } from "./socket.ts";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,9 @@ function App() {
   const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [incoming, setIncoming] = useState("");
+  const [snackbarOpen2, setSnackbarOpen2] = useState(false);
+  const [snackbarMessage2, setSnackbarMessage2] = useState("");
 
   useEffect(() => {
     document.title = snackbarMessage === "" ? "FortVault" : snackbarMessage;
@@ -40,6 +45,30 @@ function App() {
     const link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
     link.href = snackbarMessage === "" ? "./safe.png" : "./check.png";
   }, [snackbarMessage]);
+
+  useEffect(() => {
+    document.title = snackbarMessage2 === "" ? "FortVault" : snackbarMessage2;
+
+    const link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
+    link.href = snackbarMessage2 === "" ? "./safe.png" : "./email.png";
+  }, [snackbarMessage2]);
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      setIncoming(message);
+    });
+
+    return () => {
+      socket.off("message");
+    };
+  }, []);
+
+  useEffect(() => {
+    if (incoming !== "") {
+      setSnackbarMessage2(incoming);
+      setSnackbarOpen2(true);
+    }
+  }, [incoming]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -64,12 +93,31 @@ function App() {
             setSnackbarMessage("");
           }}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          key="snackbar"
         >
           <SnackbarContent
             message={snackbarMessage}
             sx={{
               backgroundColor: "darkgreen",
               fontSize: "16px",
+            }}
+          />
+        </Snackbar>
+        <Snackbar
+          open={snackbarOpen2}
+          onClose={() => {
+            setSnackbarOpen2(false);
+            setSnackbarMessage2("");
+          }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          key="snackbar2"
+        >
+          <SnackbarContent
+            message={snackbarMessage2}
+            sx={{
+              backgroundColor: "rgb(224,242,254)",
+              color: "rgb(23,37,84)",
+              fontSize: "32px",
             }}
           />
         </Snackbar>
@@ -139,6 +187,7 @@ function App() {
                 </>
               )}
               <Route path="*" element={<NotFound />}></Route>
+              <Route path="/broadcast" element={<SocketBroadcast />}></Route>
             </Routes>
           </div>
         </div>
