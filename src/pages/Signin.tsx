@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import UserContext from "../context/user.tsx";
 import { signin } from "../api/api.ts";
@@ -111,6 +111,16 @@ const Signin = () => {
         >
           Sign In
         </button>
+
+        <div className="mt-5 text-sm">
+          Don't have an account?{" "}
+          <Link
+            to="/signup"
+            className="text-blue-600 hover:text-blue-800 hover:underline"
+          >
+            Sign Up
+          </Link>
+        </div>
       </form>
 
       {isError && (

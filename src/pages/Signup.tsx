@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import UserContext from "../context/user.tsx";
 import { signup } from "../api/api.ts";
@@ -10,7 +10,6 @@ const Signup = () => {
   const usernameRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const confirmRef = useRef<HTMLInputElement | null>(null);
-  const roleRef = useRef<HTMLSelectElement | null>(null);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -33,12 +32,7 @@ const Signup = () => {
     setIsError(false);
     setError("");
 
-    if (
-      usernameRef.current &&
-      passwordRef.current &&
-      roleRef.current &&
-      confirmRef.current
-    ) {
+    if (usernameRef.current && passwordRef.current && confirmRef.current) {
       if (
         usernameRef.current.value.length < 1 ||
         usernameRef.current.value.length > 20
@@ -60,19 +54,10 @@ const Signup = () => {
         setError("Confirm Password do not match with Password.");
         return;
       }
-      if (
-        roleRef.current.value.length < 1 ||
-        roleRef.current.value.length > 10
-      ) {
-        setIsError(true);
-        setError("Role must be between 1-10 characters.");
-        return;
-      }
 
       mutate({
         username: usernameRef.current.value,
         password: passwordRef.current.value,
-        role: roleRef.current.value,
       });
     }
   };
@@ -81,7 +66,8 @@ const Signup = () => {
     <div className="m-auto max-w-md">
       <div className="text-left text-2xl font-bold sm:text-3xl">Register</div>
       <div className="text-left sm:text-lg">
-        You will have full access to all our features. It is free forever!
+        List your store with us. You will have full access to all our features,
+        for free forever!
       </div>
       <form className="p-5 sm:p-10" onSubmit={handleSignup}>
         <div className="mb-5 flex flex-col gap-2">
@@ -132,21 +118,6 @@ const Signup = () => {
           />
         </div>
 
-        <div className="mb-5 flex flex-col gap-2">
-          <label className="text-left font-semibold" htmlFor="role">
-            Role :
-          </label>
-          <select
-            className="rounded border border-black p-2 focus:outline-black"
-            id="role"
-            ref={roleRef}
-            required
-          >
-            <option value="manager">Manager</option>
-            <option value="worker">Worker</option>
-          </select>
-        </div>
-
         <button
           disabled={isRequestPending}
           className={
@@ -157,6 +128,16 @@ const Signup = () => {
         >
           Sign Up
         </button>
+
+        <div className="mt-5 text-sm">
+          Already have an account?{" "}
+          <Link
+            to="/signin"
+            className="text-blue-600 hover:text-blue-800 hover:underline"
+          >
+            Login Now
+          </Link>
+        </div>
       </form>
 
       {isError && (

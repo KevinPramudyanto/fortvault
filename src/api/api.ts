@@ -5,7 +5,6 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 export const signup = async (userData: {
   username: string;
   password: string;
-  role: string;
 }) => {
   try {
     const response = await axios.post(`${SERVER_URL}/api/signup`, userData, {
@@ -171,9 +170,12 @@ export const deleteTool = async (id: string) => {
   }
 };
 
-export const addWorker = async (userData: { username: string }) => {
+export const addWorker = async (userData: {
+  username: string;
+  password: string;
+}) => {
   try {
-    const response = await axios.patch(`${SERVER_URL}/api/user/add`, userData, {
+    const response = await axios.post(`${SERVER_URL}/api/user/add`, userData, {
       headers: {
         "Content-Type": "application/json",
         authorization: "Bearer " + localStorage.getItem("token"),
@@ -211,7 +213,7 @@ export const getWorkers = async () => {
 
 export const removeWorker = async (id: string) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/user/remove/${id}`, {
+    const response = await axios.delete(`${SERVER_URL}/api/user/remove/${id}`, {
       headers: {
         "Content-Type": "application/json",
         authorization: "Bearer " + localStorage.getItem("token"),

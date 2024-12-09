@@ -8,6 +8,8 @@ const AddWorker = () => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   const usernameRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const confirmRef = useRef<HTMLInputElement | null>(null);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const AddWorker = () => {
     setIsError(false);
     setError("");
 
-    if (usernameRef.current) {
+    if (usernameRef.current && passwordRef.current && confirmRef.current) {
       if (
         usernameRef.current.value.length < 1 ||
         usernameRef.current.value.length > 20
@@ -41,9 +43,23 @@ const AddWorker = () => {
         setError("Username must be between 1-20 characters.");
         return;
       }
+      if (
+        passwordRef.current.value.length < 1 ||
+        passwordRef.current.value.length > 20
+      ) {
+        setIsError(true);
+        setError("Password must be between 1-20 characters.");
+        return;
+      }
+      if (confirmRef.current.value !== passwordRef.current.value) {
+        setIsError(true);
+        setError("Confirm Password do not match with Password.");
+        return;
+      }
 
       mutate({
         username: usernameRef.current.value,
+        password: passwordRef.current.value,
       });
     }
   };
@@ -62,6 +78,38 @@ const AddWorker = () => {
             type="text"
             placeholder="Username"
             ref={usernameRef}
+            autoComplete="off"
+            required
+            maxLength={20}
+          />
+        </div>
+
+        <div className="mb-5 flex flex-col gap-2">
+          <label className="text-left font-semibold" htmlFor="password">
+            Password :
+          </label>
+          <input
+            className="rounded border border-black p-2 focus:outline-black"
+            id="password"
+            type="password"
+            placeholder="Password"
+            ref={passwordRef}
+            autoComplete="off"
+            required
+            maxLength={20}
+          />
+        </div>
+
+        <div className="mb-5 flex flex-col gap-2">
+          <label className="text-left font-semibold" htmlFor="confirm">
+            Confirm Password :
+          </label>
+          <input
+            className="rounded border border-black p-2 focus:outline-black"
+            id="confirm"
+            type="password"
+            placeholder="Confirm Password"
+            ref={confirmRef}
             autoComplete="off"
             required
             maxLength={20}
