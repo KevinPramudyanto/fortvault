@@ -21,13 +21,15 @@ const GetWorkers = () => {
   return (
     <div className="m-auto max-w-xl">
       {userCtx?.role === "manager" && (
-        <Link
-          to={"/addworker"}
-          className="my-5 flex items-center justify-end gap-1 text-3xl text-green-800 hover:cursor-pointer hover:text-green-900"
-        >
-          <IoIosAddCircle />
-          <div className="text-xl font-bold">Add Worker</div>
-        </Link>
+        <div className="flex items-center justify-end">
+          <Link
+            to={"/addworker"}
+            className="my-5 inline-flex items-center justify-end gap-1 text-3xl text-green-800 hover:cursor-pointer hover:text-green-900"
+          >
+            <IoIosAddCircle />
+            <div className="text-xl font-bold">Add Worker</div>
+          </Link>
+        </div>
       )}
 
       {isPending && (

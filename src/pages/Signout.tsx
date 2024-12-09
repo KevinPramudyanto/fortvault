@@ -7,9 +7,11 @@ const Signout = () => {
   useEffect(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
+    localStorage.removeItem("username");
     localStorage.removeItem("role");
     userCtx?.setToken(null);
     userCtx?.setId(null);
+    userCtx?.setUsername(null);
     userCtx?.setRole(null);
   }, []);
 

@@ -32,6 +32,9 @@ function App() {
     localStorage.getItem("token"),
   );
   const [id, setId] = useState<string | null>(localStorage.getItem("id"));
+  const [username, setUsername] = useState<string | null>(
+    localStorage.getItem("username"),
+  );
   const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -78,6 +81,8 @@ function App() {
           setToken,
           id,
           setId,
+          username,
+          setUsername,
           role,
           setRole,
           setSnackbarOpen,

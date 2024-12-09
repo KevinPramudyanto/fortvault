@@ -22,9 +22,11 @@ const Signin = () => {
     onSuccess: (data) => {
       userCtx?.setToken(data.token);
       userCtx?.setId(data.id);
+      userCtx?.setUsername(data.username);
       userCtx?.setRole(data.role);
       localStorage.setItem("token", data.token);
       localStorage.setItem("id", data.id);
+      localStorage.setItem("username", data.username);
       localStorage.setItem("role", data.role);
       navigate("/", { replace: true });
       userCtx?.setSnackbarMessage(`Welcome ${usernameRef.current?.value} !`);
