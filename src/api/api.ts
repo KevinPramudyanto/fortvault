@@ -69,10 +69,14 @@ export const changePassword = async (userData: {
 export const uploadTool = async (formData: FormData) => {
   try {
     const response = await axios.post(
-      "https://api.cloudinary.com/v1_1/" +
-        import.meta.env.VITE_CLOUDNAME +
-        "/image/upload",
+      `${SERVER_URL}/api/uploadtool`,
       formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      },
     );
     return response.data;
   } catch (error: any) {

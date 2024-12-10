@@ -61,7 +61,6 @@ const CreateTool = () => {
 
     const formData = new FormData();
     formData.append("file", image);
-    formData.append("upload_preset", "preset");
 
     uploadMutate(formData);
   };
