@@ -19,8 +19,9 @@ import ReadTools from "./pages/ReadTools";
 import AddTool from "./pages/AddTool";
 import RemoveTool from "./pages/RemoveTool";
 import GetNotifications from "./pages/GetNotifications";
-import NotFound from "./pages/NotFound";
+import ChangePassword from "./pages/ChangePassword";
 import SocketBroadcast from "./pages/SocketBroadcast";
+import NotFound from "./pages/NotFound";
 import Header from "./pages/Header";
 import UserContext from "./context/user.tsx";
 import { socket } from "./socket.ts";
@@ -126,7 +127,7 @@ function App() {
             }}
           />
         </Snackbar>
-        <div className="flex">
+        <div className="mx-auto flex max-w-screen-xl">
           {token && (role === "manager" || role === "worker") && <Header />}
           <div className="mx-auto w-full max-w-screen-xl px-5 sm:px-10">
             <Routes>
@@ -191,8 +192,9 @@ function App() {
                   ></Route>
                 </>
               )}
-              <Route path="*" element={<NotFound />}></Route>
+              <Route path="/account" element={<ChangePassword />}></Route>
               <Route path="/broadcast" element={<SocketBroadcast />}></Route>
+              <Route path="*" element={<NotFound />}></Route>
             </Routes>
           </div>
         </div>

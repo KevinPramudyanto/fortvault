@@ -40,6 +40,32 @@ export const signin = async (userData: {
   }
 };
 
+export const changePassword = async (userData: {
+  oldPassword: string;
+  newPassword: string;
+}) => {
+  try {
+    const response = await axios.patch(
+      `${SERVER_URL}/api/changepassword`,
+      userData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      },
+    );
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message || error.response.data.msg;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
 export const uploadTool = async (formData: FormData) => {
   try {
     const response = await axios.post(
