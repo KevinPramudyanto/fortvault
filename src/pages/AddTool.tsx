@@ -54,7 +54,7 @@ const AddTool = () => {
             Name :
           </label>
           <input
-            className="rounded border border-black p-2 focus:outline-black"
+            className="cursor-not-allowed rounded border border-neutral-600 bg-neutral-200 p-2 text-neutral-600"
             id="name"
             type="text"
             placeholder="Name"
@@ -70,7 +70,7 @@ const AddTool = () => {
             Description :
           </label>
           <input
-            className="rounded border border-black p-2 focus:outline-black"
+            className="cursor-not-allowed rounded border border-neutral-600 bg-neutral-200 p-2 text-neutral-600"
             id="description"
             type="text"
             placeholder="Description"
@@ -86,7 +86,7 @@ const AddTool = () => {
             Brand :
           </label>
           <input
-            className="rounded border border-black p-2 focus:outline-black"
+            className="cursor-not-allowed rounded border border-neutral-600 bg-neutral-200 p-2 text-neutral-600"
             id="brand"
             type="text"
             placeholder="Brand"

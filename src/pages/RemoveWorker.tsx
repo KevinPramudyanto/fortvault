@@ -44,7 +44,7 @@ const RemoveWorker = () => {
             Username :
           </label>
           <input
-            className="rounded border border-black p-2 focus:outline-black"
+            className="cursor-not-allowed rounded border border-neutral-600 bg-neutral-200 p-2 text-neutral-600"
             id="username"
             type="text"
             placeholder="Username"

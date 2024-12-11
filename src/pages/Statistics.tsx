@@ -80,12 +80,14 @@ const Statistics = () => {
                         : toolsWorker.slice(0, 5)
                       : toolsWorker.slice(0, 3)
                   }
+                  margin={{ right: 40, bottom: 20 }}
                 >
                   <XAxis
                     dataKey="worker_username"
                     tick={{ stroke: "black", fontSize: 14 }}
                     interval={0}
-                    angle={-10}
+                    angle={-20}
+                    dy={10}
                   />
                   <YAxis tick={{ stroke: "black", fontSize: 14 }} />
                   <Tooltip />
@@ -142,12 +144,13 @@ const Statistics = () => {
         {!isPendingToolsTime && !isErrorToolsTime && toolsTime.length > 0 && (
           <div className="mx-auto flex max-w-screen-md items-center justify-center">
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={toolsTime}>
+              <LineChart data={toolsTime} margin={{ right: 40, bottom: 20 }}>
                 <XAxis
                   dataKey="borrow_month"
                   tick={{ stroke: "black", fontSize: 14 }}
                   interval={isAboveMd ? (isAboveLg ? 1 : 2) : 3}
-                  angle={-10}
+                  angle={-20}
+                  dy={10}
                 />
                 <YAxis tick={{ stroke: "black", fontSize: 14 }} />
                 <Tooltip />
