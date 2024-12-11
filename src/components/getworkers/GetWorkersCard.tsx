@@ -5,8 +5,10 @@ const GetWorkersCard = ({ id, username }: { id: string; username: string }) => {
   return (
     <div className="flex flex-col items-center justify-between gap-1 overflow-hidden rounded-full bg-green-50 p-5 md:flex-row">
       <img
-        src={`https://robohash.org/${username}.png?set=set5`}
         className="w-10"
+        src={`https://robohash.org/${username}.png?set=set5`}
+        alt={username}
+        title={username}
       />
       <div className="font-medium">{username}</div>
       <Link

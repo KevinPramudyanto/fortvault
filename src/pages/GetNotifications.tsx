@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { IoFileTray } from "react-icons/io5";
 import GetNotificationsSkeleton from "../components/getnotifications/GetNotificationsSkeleton";
 import GetNotificationsCard from "../components/getnotifications/GetNotificationsCard";
-import { IoFileTray } from "react-icons/io5";
 import { readTools, getWorkers } from "../api/api.ts";
 
 const GetNotifications = () => {

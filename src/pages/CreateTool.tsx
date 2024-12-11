@@ -177,7 +177,6 @@ const CreateTool = () => {
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              required
             />
             {preview && (
               <img

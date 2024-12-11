@@ -121,6 +121,7 @@ function App() {
                     element={<GetNotifications />}
                   ></Route>
                   <Route path="/statistics" element={<Statistics />}></Route>
+                  <Route path="/account" element={<ChangePassword />}></Route>
                   <Route path="/signout" element={<Signout />}></Route>
                 </>
               ) : token && role === "worker" ? (
@@ -135,6 +136,7 @@ function App() {
                     path="/removetool/:id"
                     element={<RemoveTool />}
                   ></Route>
+                  <Route path="/account" element={<ChangePassword />}></Route>
                   <Route path="/signout" element={<Signout />}></Route>
                 </>
               ) : (
@@ -148,7 +150,6 @@ function App() {
                   ></Route>
                 </>
               )}
-              <Route path="/account" element={<ChangePassword />}></Route>
               <Route path="*" element={<NotFound />}></Route>
             </Routes>
           </div>
