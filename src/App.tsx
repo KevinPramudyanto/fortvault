@@ -21,11 +21,9 @@ import RemoveTool from "./pages/RemoveTool";
 import GetNotifications from "./pages/GetNotifications";
 import Statistics from "./pages/Statistics";
 import ChangePassword from "./pages/ChangePassword";
-import SocketBroadcast from "./pages/SocketBroadcast";
 import NotFound from "./pages/NotFound";
 import Header from "./pages/Header";
 import UserContext from "./context/user.tsx";
-import { socket } from "./socket.ts";
 
 const queryClient = new QueryClient();
 
@@ -40,9 +38,6 @@ function App() {
   const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [incoming, setIncoming] = useState("");
-  const [snackbarOpen2, setSnackbarOpen2] = useState(false);
-  const [snackbarMessage2, setSnackbarMessage2] = useState("");
 
   useEffect(() => {
     document.title = snackbarMessage === "" ? "FortVault" : snackbarMessage;
@@ -50,30 +45,6 @@ function App() {
     const link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
     link.href = snackbarMessage === "" ? "./safe.png" : "./check.png";
   }, [snackbarMessage]);
-
-  useEffect(() => {
-    document.title = snackbarMessage2 === "" ? "FortVault" : snackbarMessage2;
-
-    const link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
-    link.href = snackbarMessage2 === "" ? "./safe.png" : "./email.png";
-  }, [snackbarMessage2]);
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setIncoming(message);
-    });
-
-    return () => {
-      socket.off("message");
-    };
-  }, []);
-
-  useEffect(() => {
-    if (incoming !== "") {
-      setSnackbarMessage2(incoming);
-      setSnackbarOpen2(true);
-    }
-  }, [incoming]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -92,6 +63,7 @@ function App() {
         }}
       >
         <Navbar />
+
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={3000}
@@ -100,7 +72,6 @@ function App() {
             setSnackbarMessage("");
           }}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          key="snackbar"
         >
           <SnackbarContent
             message={snackbarMessage}
@@ -110,24 +81,7 @@ function App() {
             }}
           />
         </Snackbar>
-        <Snackbar
-          open={snackbarOpen2}
-          onClose={() => {
-            setSnackbarOpen2(false);
-            setSnackbarMessage2("");
-          }}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          key="snackbar2"
-        >
-          <SnackbarContent
-            message={snackbarMessage2}
-            sx={{
-              backgroundColor: "rgb(224,242,254)",
-              color: "rgb(23,37,84)",
-              fontSize: "32px",
-            }}
-          />
-        </Snackbar>
+
         <div className="mx-auto flex max-w-screen-xl">
           {token && (role === "manager" || role === "worker") && <Header />}
           <div className="mx-auto w-full max-w-screen-xl px-5 sm:px-10">
@@ -195,11 +149,11 @@ function App() {
                 </>
               )}
               <Route path="/account" element={<ChangePassword />}></Route>
-              <Route path="/broadcast" element={<SocketBroadcast />}></Route>
               <Route path="*" element={<NotFound />}></Route>
             </Routes>
           </div>
         </div>
+
         {token && (role === "manager" || role === "worker") && (
           <div className="p-9 text-white sm:p-0">Footer</div>
         )}
