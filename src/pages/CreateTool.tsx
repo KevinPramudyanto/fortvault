@@ -99,7 +99,11 @@ const CreateTool = () => {
         name: nameRef.current.value,
         description: descriptionRef.current.value,
         brand: brandRef.current.value,
-        image: image,
+        image:
+          "https://res.cloudinary.com/" +
+          import.meta.env.VITE_CLOUDNAME +
+          "/image/upload/" +
+          image,
       });
     }
   };

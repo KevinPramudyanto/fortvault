@@ -19,6 +19,7 @@ import ReadTools from "./pages/ReadTools";
 import AddTool from "./pages/AddTool";
 import RemoveTool from "./pages/RemoveTool";
 import GetNotifications from "./pages/GetNotifications";
+import Statistics from "./pages/Statistics";
 import ChangePassword from "./pages/ChangePassword";
 import SocketBroadcast from "./pages/SocketBroadcast";
 import NotFound from "./pages/NotFound";
@@ -165,6 +166,7 @@ function App() {
                     path="/getnotifications"
                     element={<GetNotifications />}
                   ></Route>
+                  <Route path="/statistics" element={<Statistics />}></Route>
                   <Route path="/signout" element={<Signout />}></Route>
                 </>
               ) : token && role === "worker" ? (

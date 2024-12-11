@@ -336,6 +336,44 @@ export const rejectTool = async (id: string) => {
   }
 };
 
+export const toolsByWorker = async () => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/logs/worker`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message || error.response.data.msg;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const toolsByTime = async () => {
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/logs/tool`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    const message = error.response.data.message || error.response.data.msg;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
 export const readImages = async () => {
   try {
     const response = await axios.get(

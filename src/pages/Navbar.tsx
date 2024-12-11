@@ -2,7 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import { IoSettingsOutline } from "react-icons/io5";
-import { HiOutlineLogin, HiOutlineLogout } from "react-icons/hi";
+import {
+  HiOutlineLogin,
+  HiOutlineLogout,
+  HiOutlinePresentationChartLine,
+} from "react-icons/hi";
 import NavbarLogo from "../components/navbar/NavbarLogo";
 import UserContext from "../context/user.tsx";
 
@@ -76,10 +80,22 @@ const Navbar = () => {
               <div
                 className={`absolute right-0 z-10 mt-1 ${showMenu ? "" : "hidden"} w-40 rounded bg-white p-2 shadow-2xl shadow-neutral-500`}
               >
+                {userCtx?.role === "manager" && (
+                  <Link
+                    to="/statistics"
+                    onClick={() => setShowMenu(false)}
+                    className="block rounded px-3 py-1 font-bold hover:bg-sky-100 hover:text-blue-800"
+                  >
+                    <div className="flex items-center justify-start gap-3">
+                      <HiOutlinePresentationChartLine size={30} />
+                      <div className="text-sm sm:text-base">Statistics</div>
+                    </div>
+                  </Link>
+                )}
                 <Link
                   to="/account"
                   onClick={() => setShowMenu(false)}
-                  className="block rounded px-3 py-1 font-bold hover:bg-sky-100 hover:text-blue-800"
+                  className="mt-2 block rounded px-3 py-1 font-bold hover:bg-sky-100 hover:text-blue-800"
                 >
                   <div className="flex items-center justify-start gap-3">
                     <IoSettingsOutline size={30} />

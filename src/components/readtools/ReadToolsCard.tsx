@@ -57,13 +57,8 @@ const ReadToolsCard = ({
       >
         <img
           className="aspect-video w-full border-b border-green-900 object-cover"
-          src={
-            "https://res.cloudinary.com/" +
-            import.meta.env.VITE_CLOUDNAME +
-            "/image/upload/" +
-            image
-          }
-          alt={image}
+          src={image}
+          alt={name}
         />
       </CustomTooltip>
 
