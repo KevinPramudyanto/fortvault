@@ -4,9 +4,9 @@
 
 ## Background Info
 
-**FortVault** is a platform designed to help field workers manage their inventory conveniently. The application provides essential function, such as inventory creation, inventory loan, and worker management. The application is built using the PostgreSQL, Flask, React TypeScript stack.
+FortVault is an inventory management application, designed for field workers to manage their inventory conveniently. It offers users to lend their inventory and manage their worker accordingly. This application is built using PostgreSQL, Flask, React TypeScript stack.
 
-The link to the backend repository can be found here: [FortVault Server](https://github.com/KevinPramudyanto/fortvault-server)
+Link to the backend repository can be found here: [FortVault Server](https://github.com/KevinPramudyanto/fortvault-server)
 
 ## Table of Contents
 
@@ -25,43 +25,43 @@ The link to the backend repository can be found here: [FortVault Server](https:/
 ### Signup Page
 
 <img src="./readme/signup.png" alt="Signup Page" width="800">
-User can create their account, as a store manager.
+User can create an account, as a store manager.
 
 ### Signin Page
 
 <img src="./readme/signin.png" alt="Signin Page" width="800">
-User can login to their account. Store manager will be able to manage the inventory and workers. Worker will be able to view and borrow the inventory.
+User can login to their account. Store manager will be able to manage their inventory and their workers. Worker will be able to view and borrow their manager's inventory.
 
 ### Inventory Page
 
 <img src="./readme/readtools.png" alt="Inventory Page" width="800">
-Both manager and worker will be able to view the inventory.
+Upon login, user will be redirected to the inventory page. Manager can see their inventory, and worker can see their manager's inventory
 
 ### Manage Inventory Page
 
 <img src="./readme/createtool.png" alt="Create Inventory Page" width="800">
 <img src="./readme/updatetool.png" alt="Update Inventory Page" width="800">
 <img src="./readme/deletetool.png" alt="Delete Inventory Page" width="800">
-Manager will be able to create, update, and delete the inventory.
+Only manager is allowed to create, update, and delete their inventory.
 
 ### Borrow Inventory Page
 
 <img src="./readme/addtool.png" alt="Borrow Inventory Page" width="800">
 <img src="./readme/removetool.png" alt="Return Inventory Page" width="800">
-Worker will be able to borrow and return the inventory.
+Only worker is allowed to borrow and return their manager's inventory.
 
 ### Approve Inventory Page
 
 <img src="./readme/approvetool.png" alt="Approve Inventory Page" width="800">
 <img src="./readme/rejecttool.png" alt="Reject Inventory Page" width="800">
-Manager will be able to either approve or reject the inventory.
+After worker requests to borrow, their manager will be able to either approve or reject the request.
 
 ### Manage Worker Page
 
 <img src="./readme/getworkers.png" alt="Worker Page" width="800">
 <img src="./readme/addworker.png" alt="Add Worker Page" width="800">
 <img src="./readme/removeworker.png" alt="Remove Worker Page" width="800">
-Manager will be able to create account for their new worker, view the list of workers, or delete account of their worker.
+Manager will be able to create account for their new worker. Also they can view all their workers, or delete account of their worker.
 
 ### Notification Page
 
@@ -71,12 +71,12 @@ Manager will be able to view if any pending tasks.
 ### Change Password Page
 
 <img src="./readme/account.png" alt="Change Password Page" width="800">
-Users can change their password.
+Users (both manager and worker) can change their password.
 
 ### Statistics Page
 
 <img src="./readme/statistics.png" alt="Statistics Page" width="800">
-Displays information about their tools and their workers.
+Displays data analytics about their tools and their workers.
 
 ## Features
 
@@ -89,7 +89,7 @@ Displays information about their tools and their workers.
 
 ### Frontend
 
-- **React TypeScript**: Front-end JavaScript library for building user interfaces.
+- **React TypeScript**: Front-end TypeScript library for building user interfaces.
 - **Vite**: Development environment and bundler.
 - **React Router**: Declarative routing for React applications.
 - **TanStack Query**: For efficient data fetching, caching and state management.
@@ -102,6 +102,11 @@ Displays information about their tools and their workers.
 - **PostgreSQL**: SQL database for data storage.
 - **psycopg2-binary**: PostgreSQL database adapter for Python.
 - **flask-jwt-extended** - Library for creating and verifying JSON Web Tokens (JWTs) for authentication.
+
+### API
+
+- **Cloudinary**: Image storage for user-uploaded media files.
+- **NASA**: Images from NASA for slides.
 
 ## ERD & Planning Materials
 
@@ -176,14 +181,16 @@ To get started with the project, follow these steps:
 
    ```
    CLOUD_NAME=<your-cloudinary-cloudname>;
-   DB=<your-db-name>;
+   DB=<your-database-name>;
    DB_HOST=localhost;
-   DB_PASSWORD=<your-db-password>;
+   DB_PASSWORD=<your-database-password>;
    DB_PORT=5432;
-   DB_USER=<your-db-username>;
+   DB_USER=<your-database-username>;
    JWT_SECRET_KEY=<your-secret-key>;
    UPLOAD_PRESET=<your-cloudinary-upload-preset>
    ```
+
+5. In PostgreSQL, create all tables using codes from [query.sql](https://github.com/KevinPramudyanto/fortvault-server/blob/main/query.sql)
 
 ## Running The Application
 
@@ -226,6 +233,7 @@ fortvault-server/
 1. **Send Email for Forgot Password**: Enable users to reset password by sending to their email.
 2. **Push Notification for New Task**: Users will receive real-time notification for new pending approval.
 3. **Chat between Manager and Worker**: Allow users to start a real-time chat with their manager or worker.
+4. **Subscription-Based Payment**: Monthly, quarterly, or yearly plans to access premium services.
 
 ## Attributions
 
@@ -233,6 +241,8 @@ fortvault-server/
 
 - Montserrat font from [Google Fonts](https://fonts.google.com/specimen/Montserrat).
 - Components from [Material UI](https://mui.com/material-ui/all-components/).
+- Charts from [Recharts](https://recharts.org/en-US/).
+- Image slides from [Swiper](https://swiperjs.com/react).
 - Icons from [React Icons](https://react-icons.github.io/react-icons/).
 - Title bar icon 1 from [Flaticon](https://www.flaticon.com/free-icon/safe_2489669)
 - Title bar icon 2 from [Flaticon](https://www.flaticon.com/free-icon/check_5610944)
@@ -242,5 +252,3 @@ fortvault-server/
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [TanStack Query Documentation](https://tanstack.com/query/latest/docs/framework/react/overview)
 - [React Router Documentation](https://reactrouter.com/)
-- [Swiper](https://swiperjs.com/react)
-- [Recharts](https://recharts.org/en-US/)
