@@ -4,7 +4,7 @@
 
 ## Background Info
 
-FortVault is an inventory management application, designed for field workers to manage their inventory conveniently. It offers users to lend their inventory and manage their worker accordingly. This application is built using PostgreSQL, Flask, React TypeScript stack.
+FortVault is a robust inventory management application, designed to simplify inventory tracking and management for field workers. It enables users to efficiently lend, borrow, and track inventory between manager and workers. This application is built using PostgreSQL, Flask, and React TypeScript stack.
 
 Link to the backend repository can be found here: [FortVault Server](https://github.com/KevinPramudyanto/fortvault-server)
 
@@ -35,7 +35,7 @@ User can login to their account. Store manager will be able to manage their inve
 ### Inventory Page
 
 <img src="./readme/readtools.png" alt="Inventory Page" width="800">
-Upon login, user will be redirected to the inventory page. Manager can see their inventory, and worker can see their manager's inventory
+Upon login, user will be redirected to the inventory page. Manager will get an overview of their inventory, and worker can see their manager's inventory.
 
 ### Manage Inventory Page
 
@@ -76,37 +76,39 @@ Users (both manager and worker) can change their password.
 ### Statistics Page
 
 <img src="./readme/statistics.png" alt="Statistics Page" width="800">
-Displays data analytics about their tools and their workers.
+Displays analytics about tools, workers, and operational efficiency.
 
 ## Features
 
-- **Landing Page**: Brief overview of the app and its functionality to attract potential new users.
-- **Inventory Details**: View and manage each of your inventory.
-- **Profile Management**: Manage account settings, such as change password
-- **Responsive Design**: Enjoy a seamless experience across all devices, from smartphones to desktops.
+- **Landing Page**: Provide brief overview of the app and its functionality to attract potential new users
+- **Inventory Management**: View, add, update, or delete inventory, including image uploads
+- **Worker Management**: Seamlessly add, update, and manage worker accounts
+- **Profile Control**: Update account settings, such as password changes
+- **Data Analytics**: Gain insights into inventory and worker activities through visually appealing charts
+- **Responsive Design**: Optimized for a seamless experience across all devices, from smartphones to desktops.
 
 ## Technologies Used
 
 ### Frontend
 
-- **React TypeScript**: Front-end TypeScript library for building user interfaces.
-- **Vite**: Development environment and bundler.
-- **React Router**: Declarative routing for React applications.
-- **TanStack Query**: For efficient data fetching, caching and state management.
-- **Axios**: Promise-based HTTP client for API requests.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **React TypeScript**: Powerful library for building dynamic user interfaces
+- **Vite**: Fast development environment and bundler
+- **React Router**: Simplified routing for React applications
+- **TanStack Query**: Efficient data fetching and state management
+- **Axios**: For making API requests
+- **Tailwind CSS**: Utility-first CSS framework for styling
 
 ### Backend
 
-- **Flask**: Web application framework written in Python.
-- **PostgreSQL**: SQL database for data storage.
-- **psycopg2-binary**: PostgreSQL database adapter for Python.
-- **flask-jwt-extended** - Library for creating and verifying JSON Web Tokens (JWTs) for authentication.
+- **Flask**: Lightweight Python web framework
+- **PostgreSQL**: Reliable relational database for data storage
+- **psycopg2-binary**: PostgreSQL database adapter for Python
+- **flask-jwt-extended** - Authentication with JSON Web Tokens
 
 ### API
 
-- **Cloudinary**: Image storage for user-uploaded media files.
-- **NASA**: Images from NASA for slides.
+- **Cloudinary**: Cloud-based media management for image uploads
+- **NASA**: Curated images for slideshows
 
 ## ERD & Planning Materials
 
@@ -114,70 +116,65 @@ Displays data analytics about their tools and their workers.
 
 The `tools` table references the `users` table, and the `logs` table references the `users` table.
 
-User Stories and Stretch Goals : [Trello board](https://trello.com/b/Ch66DBxd/fortvault)
+User Stories and Stretch Goals : [Trello Board](https://trello.com/b/Ch66DBxd/fortvault)
 
 ## Getting Started
 
-To get started with the project, follow these steps:
-
 ### Prerequisites
 
-1. Ensure [PostgreSQL](https://www.postgresql.org/download/) is installed.
-
-2. Create Cloudinary by signing up [here](https://cloudinary.com/)
+1. Install [PostgreSQL](https://www.postgresql.org/download)
+2. Sign up for a Cloudinary account [here](https://cloudinary.com)
 
 ### To Run Locally
 
 #### Frontend (fortvault)
 
-1. Open terminal and clone the repository:
+1. Clone the repository:
 
-   ```bash
+   ```
    git clone https://github.com/KevinPramudyanto/fortvault.git
    ```
 
 2. Navigate to the project directory:
 
-   ```bash
+   ```
    cd fortvault
    ```
 
-3. Install the client dependencies:
+3. Install dependencies:
 
-   ```bash
-   npm i
+   ```
+   npm install
    ```
 
-4. Create a `.env` file in the project directory and add the following variable:
+4. Create a `.env` file with the following variables:
 
    ```
    VITE_SERVER_URL=http://localhost:5001
    VITE_CLOUDNAME=<your-cloudinary-cloudname>
    ```
 
-   with `<your-cloudinary-cloudname>` is your cloudinary cloudname
-
 #### Backend (fortvault-server)
 
-1. In another directory, open terminal and clone the repository:
+1. Clone the repository:
 
-   ```bash
+   ```
    git clone https://github.com/KevinPramudyanto/fortvault-server.git
    ```
 
 2. Navigate to the project directory:
 
-   ```bash
+   ```
    cd fortvault-server
    ```
 
-3. Install the server dependencies:
+3. Install dependencies:
 
-   ```bash
+   ```
    pipenv install
    ```
 
-4. Create environment variables in Run/Debug Configurations and add the following row:
+4. Set environment variables:
 
    ```
    CLOUD_NAME=<your-cloudinary-cloudname>;
@@ -194,61 +191,62 @@ To get started with the project, follow these steps:
 
 ## Running The Application
 
-### Start the server
+### Start the backend server
 
-Run `main.py` within the `fortvault-server` directory.
+Run `main.py` in the `fortvault-server` directory.
 
-### Start the client
+### Start the frontend client
 
-Run `npm run dev` within the `fortvault` directory.
+Run `npm run dev` in the `fortvault` directory.
 
 ## Folder Structure
-
-The project structure is organized as follows:
 
 #### Frontend (fortvault)
 
 ```
 fortvault/
 ├── src/
-│   ├── api/            # API call logic using axios
+│   ├── api/            # Axios API logic
 │   ├── components/     # React components
 │   ├── context/        # React context providers for state management
-│   ├── pages/          # Page-level components for different routes
-├── .env                # Environment variables (not tracked in version control)
-├── package.json        # Dependencies and scripts for the client
+│   ├── pages/          # Page-level components
+├── .env                # Environment variables
+├── package.json        # Project configuration and dependencies
 ```
 
 #### Backend (fortvault-server)
 
 ```
 fortvault-server/
-├── resources/         # Request handling logic and API route definitions
-├── db/                # Database connection and setup
-├── Pipfile            # Dependencies and scripts for the server
+├── resources/         # API routes and request handling
+├── db/                # Database setup and connection
+├── Pipfile            # Python dependencies
 ```
 
 ## Future Enhancements
 
-1. **Send Email for Forgot Password**: Enable users to reset password by sending to their email.
-2. **Push Notification for New Task**: Users will receive real-time notification for new pending approval.
-3. **Chat between Manager and Worker**: Allow users to start a real-time chat with their manager or worker.
-4. **Subscription-Based Payment**: Monthly, quarterly, or yearly plans to access premium services.
+1. **Email-Based Password Recovery**: Allow users to reset their password via email
+2. **Real-Time Notifications**: Push notifications for task updates and approvals
+3. **Real-Time Chat**: Integrated chat feature for seamless communication between manager and worker
+4. **Subscription-Based Payment**: Introduce premium features with monthly or annual plans
 
 ## Attributions
 
 ### Resources
 
-- Montserrat font from [Google Fonts](https://fonts.google.com/specimen/Montserrat).
-- Components from [Material UI](https://mui.com/material-ui/all-components/).
-- Charts from [Recharts](https://recharts.org/en-US/).
-- Image slides from [Swiper](https://swiperjs.com/react).
-- Icons from [React Icons](https://react-icons.github.io/react-icons/).
-- Title bar icon 1 from [Flaticon](https://www.flaticon.com/free-icon/safe_2489669)
-- Title bar icon 2 from [Flaticon](https://www.flaticon.com/free-icon/check_5610944)
+- Font: [Montserrat](https://fonts.google.com/specimen/Montserrat) by Google Fonts
+- Components: [Material UI](https://mui.com/material-ui/all-components)
+- Charts: [Recharts](https://recharts.org/en-US)
+- Image slider: [Swiper](https://swiperjs.com/react)
+- Icons: [React Icons](https://react-icons.github.io/react-icons)
+- Icons for the title bar:
+  - Default icon: [Flaticon](https://www.flaticon.com/free-icon/safe_2489669)
+  - Success icon: [Flaticon](https://www.flaticon.com/free-icon/check_5610944)
 
 ### References
 
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [TanStack Query Documentation](https://tanstack.com/query/latest/docs/framework/react/overview)
-- [React Router Documentation](https://reactrouter.com/)
+- [Tailwind CSS Documentation](https://tailwindcss.com)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
+- [Axios Documentation](https://axios-http.com)
+- [Flask-JWT-Extended Documentation](https://flask-jwt-extended.readthedocs.io/en/stable)
+- [Requests Documentation](https://requests.readthedocs.io/en/latest)
